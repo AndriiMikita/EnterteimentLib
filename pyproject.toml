@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "enterteimentlib"
+version = "0.1.0"
+description = ""
+authors = ["AndriiMikita <103601417+AndriiMikita@users.noreply.github.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+django = "^4.2.1"
+django-filter = "^23.2"
+django-widget-tweaks = "^1.4.12"
+pillow = "^9.5.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

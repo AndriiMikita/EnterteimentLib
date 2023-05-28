@@ -1,0 +1,329 @@
+{% extends "layout.html" %}
+
+
+{% block style %}
+* {
+    box-sizing: border-box;
+  }
+  
+  a {
+    text-decoration: none;
+    color: #379937;
+  }
+  
+  .dropdown {
+    position: relative;
+    display: block;
+    font-size: 14px;
+    color: #333;
+  
+    .dropdown-list {
+      padding: 12px;
+      background: #fff;
+      position: absolute;
+      top: 30px;
+      left: 2px;
+      right: 2px;
+      box-shadow: 0 1px 2px 1px rgba(0, 0, 0, .15);
+      transform-origin: 50% 0;
+      transform: scale(1, 0);
+      transition: transform .15s ease-in-out .15s;
+      max-height: 66vh;
+      overflow-y: scroll;
+    }
+    
+    .dropdown-option {
+      display: block;
+      padding: 8px 12px;
+      opacity: 0;
+      transition: opacity .15s ease-in-out;
+    }
+    
+    .dropdown-label {
+      display: block;
+      height: 30px;
+      background: #fff;
+      border: 1px solid #ccc;
+      padding: 6px 12px;
+      line-height: 1;
+      cursor: pointer;
+      
+      &:before {
+        content: '▼';
+        float: right;
+      }
+    }
+    
+    &.on {
+     .dropdown-list {
+        transform: scale(1, 1);
+        transition-delay: 0s;
+        
+        .dropdown-option {
+          opacity: 1;
+          transition-delay: .2s;
+        }
+      }
+      
+      .dropdown-label:before {
+        content: '▲';
+      }
+    }
+    
+    [type="checkbox"] {
+      position: relative;
+      top: -1px;
+      margin-right: 4px;
+    }
+
+    :active, :hover, :focus {
+      outline: 0;
+      outline-offset: 0;
+    }
+  }
+{% endblock style %}
+
+{% block title %}
+    <title>Бібліотека</title>
+{% endblock title %}
+    
+
+{% block body %}
+    <div class="container-fluid d-flex">
+        <div class="position-sticky col-md-4 sticky-top">
+            <form method="get" style="width: 100%; min-width: 310px; padding-top: 70px" class="position-sticky sticky-top">
+                {% csrf_token %}
+                {{filter.form.errors}}
+                {{ filter.form.non_field_errors }}
+                <div class="form-group form-inline">
+                    {{filter.form.title.label}}
+                    <br/>
+                    {{filter.form.title}}
+                </div>
+                <div class="form-group form-inline">
+                    {{filter.form.authors.label}}
+                    <br/>
+                    <div class="dropdown mx-sm-3" id="authorsDd" data-control="checkbox-dropdown">
+                        <label class="dropdown-label">Вибрати</label>
+                        <div class="dropdown-list " style="max-height: 200px; overflow-y: auto;">
+                            <a data-toggle="check-all" class="dropdown-option" >
+                            Вибрати всі
+                            </a>
+
+                            {% for author in filter.form.authors %}
+                            <div class="dropdown-option d-flex justify-content-between">
+                                {{ author }}
+                                {% if is_creator %}
+                                {% with author=forloop.counter %}
+                                    <a href="{% url 'editAuthor' pk=author %}">Редагувати</a>
+                                {% endwith %}
+                                {% endif %} 
+                            </div>
+                            {% endfor %}
+                            
+                            {% if is_creator %}  
+                              <a class="dropdown-option" href="{% url 'addAuthor' %}">
+                              Додати автора
+                              </a>
+                            {% endif %} 
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group form-inline">
+                    {{filter.form.tags.label}}
+                    <br/>
+                    <div class="dropdown mx-sm-3" id="tagsDd" data-control="checkbox-dropdown">
+                    <label class="dropdown-label">Вибрати</label>
+                        
+                    <div class="dropdown-list " style="max-height: 200px; overflow-y: auto;" input="1d">
+                        <a href="#" data-toggle="check-all" class="dropdown-option" >
+                        Вибрати всі  
+                        </a>
+                    
+                        {% for tag in filter.form.tags %}
+                        <div class="dropdown-option d-flex justify-content-between">
+                            {{ tag }}
+                            {% if is_creator %}
+                            {% with tag=forloop.counter %}
+                                <a href="{% url 'editTag' pk=tag %}">Редагувати</a>
+                            {% endwith %}
+                            {% endif %} 
+                            
+                        </div>
+                        {% endfor %}
+                        {% if is_creator%} 
+                        <a class="dropdown-option" href="{% url 'addTag' %}"">
+                        Додати тег
+                        </a>
+                        {% endif %} 
+                    </div>
+                    </div>
+                </div>
+                <div class="form-group form-inline">
+                    {{filter.form.genres.label}}
+                    <br/>
+                    <div class="dropdown mx-sm-3" id="genresDd" data-control="checkbox-dropdown">
+                        <label class="dropdown-label">Виберіть</label>
+                                    
+                        <div class="dropdown-list" style="max-height: 200px; overflow-y: auto;" input="1d">
+                            <a href="#" data-toggle="check-all" class="dropdown-option" >
+                                Вибрати всі 
+                            </a>
+                                        
+                            {% for genre in filter.form.genres %}
+                                <div class="dropdown-option d-flex justify-content-between">
+                                    {{ genre }}
+                                    {% if is_creator%} 
+                                    {% with genre=forloop.counter %}
+                                    <a href="{% url 'editGenre' pk=genre %}">Редагувати</a>
+                                    {% endwith %}
+                                    {% endif %} 
+                                </div>
+                            {% endfor %}
+                            {% if is_creator%} 
+                            <a class="dropdown-option" href="{% url 'addGenre' %}"">
+                                Додати жанр
+                            </a>
+                            {% endif %} 
+                        </div>
+                    </div>            
+                </div>
+                <button type="submit" class="btn btn-info mx-sm-3" style="width: 33%;">Фільтрувати</button>
+            </form>
+        </div>
+        <div class="flex-row d-flex flex-wrap justify-content-center col-md-7">
+            {% for book in object_list %}
+                <div class="card m-2" style="width: 233px;">
+                    <img class="card-img-top" src="{{book.coverart.url}}" alt="{{book.title}}" style="height: 300px; width: 100%; object-fit: contain;">
+                    <div class="card-body d-flex justify-content-between flex-column">
+                        <h4 class="card-title">{{book.title}}</h4>
+                        <div class="d-flex flex-row justify-content-between">
+                            <a href="{% url 'show' title=book.title %}" class="btn btn-sm btn-info">Переглянути</a>
+                            {% if is_creator%} 
+                            <a href="{% url 'edit' title=book.title %}" class="btn btn-sm btn-info">Редагувати</a>
+                            {% endif %} 
+                        </div>
+                    </div>
+                    </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock body %}
+
+{% block script %}
+(function($) {
+    var CheckboxDropdown = function(el) {
+      var _this = this;
+      this.isOpen = false;
+      this.areAllChecked = false;
+      this.$el = $(el);
+      this.$label = this.$el.find('.dropdown-label');
+      this.$checkAll = this.$el.find('[data-toggle="check-all"]').first();
+      this.$inputs = this.$el.find('[type="checkbox"]');
+      
+      this.onCheckBox();
+      
+      this.$label.on('click', function(e) {
+        e.preventDefault();
+        _this.toggleOpen();
+      });
+      
+      this.$checkAll.on('click', function(e) {
+        e.preventDefault();
+        _this.onCheckAll();
+      });
+      
+      this.$inputs.on('change', function(e) {
+        _this.onCheckBox();
+      });
+    };
+    
+    CheckboxDropdown.prototype.onCheckBox = function() {
+      this.updateStatus();
+    };
+    
+    CheckboxDropdown.prototype.updateStatus = function() {
+      var checked = this.$el.find(':checked');
+      
+      this.areAllChecked = false;
+      this.$checkAll.html('Вибрати всі');
+      
+      if(checked.length <= 0) {
+        this.$label.html('Виберіть пункт');
+      }
+      else if(checked.length === 1) {
+        this.$label.html(checked.parent('label').text());
+      }
+      else if(checked.length === this.$inputs.length) {
+        this.$label.html('Всі вибрані');
+        this.areAllChecked = true;
+        this.$checkAll.html('Скасувати вибір усіх');
+      }
+      else {
+        this.$label.html(checked.length + ' Вибрані');
+      }
+    };
+    
+    CheckboxDropdown.prototype.onCheckAll = function(checkAll) {
+      if(!this.areAllChecked || checkAll) {
+        this.areAllChecked = true;
+        this.$checkAll.html('Uncheck All');
+        this.$inputs.prop('checked', true);
+      }
+      else {
+        this.areAllChecked = false;
+        this.$checkAll.html('Check All');
+        this.$inputs.prop('checked', false);
+      }
+      
+      this.updateStatus();
+    };
+    
+    CheckboxDropdown.prototype.toggleOpen = function(forceOpen) {
+      var _this = this;
+      
+      if(!this.isOpen || forceOpen) {
+         this.isOpen = true;
+         this.$el.addClass('on');
+        $(document).on('click', function(e) {
+          if(!$(e.target).closest('[data-control]').length) {
+           _this.toggleOpen();
+          }
+        });
+      }
+      else {
+        this.isOpen = false;
+        this.$el.removeClass('on');
+        $(document).off('click');
+      }
+    };
+    
+    var checkboxesDropdowns = document.querySelectorAll('[data-control="checkbox-dropdown"]');
+    for(var i = 0, length = checkboxesDropdowns.length; i < length; i++) {
+      new CheckboxDropdown(checkboxesDropdowns[i]);
+    }
+  })(jQuery);
+  
+
+  document.addEventListener('DOMContentLoaded', function() {
+    const dropdowns = document.getElementsByClassName('dropdown');
+  
+    for (let i = 0; i < dropdowns.length; i++) {
+      dropdowns[i].addEventListener('click', function() {
+        const elementId = this.getAttribute('id');
+        for (let i = 0; i < dropdowns.length; i++) {
+          const dropdown = dropdowns[i];
+          const dropdownId = dropdown.getAttribute('id');
+          
+          dropdown.style.zIndex = 'auto';
+          dropdown.classList.remove('on')
+    
+          if (dropdownId == elementId) {
+            dropdown.style.zIndex = '9999';
+            dropdown.classList.add('on')
+          }
+        }
+      });
+    }
+  });
+{% endblock script %}

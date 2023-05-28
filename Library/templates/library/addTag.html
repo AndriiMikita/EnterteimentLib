@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    <title>Тег</title>
+{% endblock title %}
+    
+
+{% block style %}
+
+{% endblock style %}
+
+{% block body %}
+<div class="container-fluid">
+    <div class="row d-flex flex-wrap justify-content-center">
+        <h2>{{header}}</h2>
+        <form method="post" action="{% url 'addTag' %}">
+            {% csrf_token %}
+            <input type="hidden" name="previous_page" value="{{ previous_page }}">
+            {{form.errors}}
+            {{ form.non_field_errors }}
+            <div class="form-group form-inline">
+                {{form.name.label}}
+                <br/>
+                {{form.name}}
+            </div>
+            <button type="submit" class="btn btn-success mx-sm-3">Зберегти зміни</button>
+        </form>
+    </div>
+</div>
+{% endblock body %}

@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+
+{% block title %}
+    <title>Вхід</title>
+{% endblock title %}
+
+
+{% block style %}
+    
+{% endblock style %}
+    
+
+{% block body %}
+    <h1>Вхід</h1>
+    <div class="primary-container">
+        <form method="post">
+            {% csrf_token %}
+            {% for f in form %}
+            <div class="form-group form-inline mx-sm-3">
+                {{f.label}}
+                </br>
+                {{f}}
+                {% if f.errors %}
+                    <div class="form-erros alert alert-danger">{{f.errors}}</div>
+                {% endif %}
+            </div>
+            {% endfor %}
+            <button class="btn btn-success mx-sm-3" type="submit">Увійти</button>
+        </form>
+    </div>
+{% endblock body %}
+    

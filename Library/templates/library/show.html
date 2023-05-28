@@ -1,0 +1,183 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    <title>{{book.title}}</title>
+{% endblock title %}
+    
+
+{% block style %}
+.primary-container {
+  margin: 0 auto;
+  max-width: 1000px;
+  padding: 20px;
+  background-color: #f2f2f2;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+}
+
+.book-container {
+    margin: 0;
+    width: 100%;
+    display: flex;
+    height: 100%;
+  }
+  
+.book-image {
+  flex: 1;
+  margin-right: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.book-image img {
+    height: 317px;
+    width: auto;
+    object-fit: contain;
+}
+  
+  .book-details {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .book-title {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+  }
+  
+.tag-container,
+.genre-container,
+.author-buttons-container {
+  max-height: 95px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.3) transparent;
+  white-space: nowrap;
+  display: flex;
+  align-items: flex-start;
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 5px;
+  position: relative;
+}
+  
+.tag-container p,
+.genre-container p,
+.author-buttons-container p {
+  position: sticky;
+  top: 0;
+  background-color: #f2f2f2;
+  padding: 10px;
+  margin: 0;
+  z-index: 1;
+}
+
+
+.author-buttons-container::-webkit-scrollbar,
+.tag-container::-webkit-scrollbar,
+.genre-container::-webkit-scrollbar {
+  width: 8px;
+  scroll-behavior: smooth;
+}
+
+.author-buttons,
+.tags,
+.genres {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  overflow-x: auto;
+}
+
+.author-buttons li,
+.tags li,
+.genres li {
+  margin-right: 10px;
+}
+
+.author-buttons li a,
+.tags li a,
+.genres li a {
+  display: inline-block;
+  padding: 5px 10px;
+  border: 1px solid #ddd;
+  border-radius: 0;
+  text-decoration: none;
+}
+
+.content-container {
+  margin-top: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 20px;
+}
+
+.content-container p {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.content-container div {
+  background-color: #f2f2f2;
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+{% endblock style %}
+
+{% block body %}
+<div class="primary-container">
+  <div class="book-container">
+      <div class="book-image">
+          <img src="{{book.coverart.url}}" alt="{{book.title}}">
+      </div>
+      <div class="book-details">
+          <div class="book-title">
+              <h2>{{book.title}}</h2>
+          </div>
+          <div class="author-buttons-container">
+            <p>Автори:</p>
+            <ul class="author-buttons">
+                {% for author in book.authors.all %}
+                <li><a href="{% url 'library' %}?authors={{author.pk}}">{{author}}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+          <div class="tag-container">
+              <p>Теги:</p>
+              <div class="tags">
+                  <ul class="author-buttons">
+                      {% for tag in book.tags.all %}
+                      <li><a href="{% url 'library' %}?tags={{tag.pk}}">{{tag}}</a></li>
+                      {% endfor %}
+                  </ul>
+              </div>
+          </div>
+          <div class="genre-container">
+              <p>Жанри:</p>
+              <div class="genres">
+                  <ul class="author-buttons">
+                      {% for genre in book.genres.all %}
+                      <li><a href="{% url 'library' %}?genres={{genre.pk}}">{{genre}}</a></li>
+                      {% endfor %}
+                  </ul>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="content-container">
+    <p>Короткий Зміст</p>
+    <div>
+      {{book.description}}
+    </div>
+  </div>
+</div>
+{% endblock body %}
