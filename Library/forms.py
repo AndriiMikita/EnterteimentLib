@@ -80,15 +80,23 @@ class SearchForm(forms.ModelForm):
         
 
 class RegisterUserForm(UserCreationForm):
-    username = forms.CharField(label='Логін', widget=forms.TextInput(attrs={'class': ' form-control mx-sm-3'}))
-    email = forms.CharField(label='Пошта', widget=forms.TextInput(attrs={'class': ' form-control mx-sm-3'}))
-    password1 = forms.CharField(label='Пароль', widget=forms.TextInput(attrs={'class': ' form-control mx-sm-3', 'type': 'password'}))
-    password2 = forms.CharField(label='Повторіть пароль', widget=forms.TextInput(attrs={'class': ' form-control mx-sm-3', 'type': 'password'}))
+    username = forms.CharField(label='Логін', widget=forms.TextInput(attrs={'class': ' form-control mx-sm-3',
+                                                                            'style': 'max-width: 80%',}))
+    email = forms.CharField(label='Пошта', widget=forms.TextInput(attrs={'class': ' form-control mx-sm-3',
+                                                                         'style': 'max-width: 80%',}))
+    password1 = forms.CharField(label='Пароль', widget=forms.TextInput(attrs={'class': ' form-control mx-sm-3', 
+                                                                              'type': 'password',
+                                                                              'style': 'max-width: 80%'}))
+    password2 = forms.CharField(label='Повторіть пароль', widget=forms.TextInput(attrs={'class': ' form-control mx-sm-3', 
+                                                                                        'type': 'password',
+                                                                                        'style': 'max-width: 80%'}))
     
     class Meta:
         model = User
         fields = ('username', 'email', 'password1', 'password2',)
         
 class LoginUserForm(AuthenticationForm):
-    username = forms.CharField(label="Логін", widget=forms.TextInput(attrs={'class': ' form-control mx-sm-3'}))
-    password = forms.CharField(label='Пароль', widget=forms.PasswordInput(attrs={'class': ' form-control mx-sm-3'}))
+    username = forms.CharField(label="Логін", widget=forms.TextInput(attrs={'class': ' form-control mx-sm-3',
+                                                                            'style': 'max-width: 80%',}))
+    password = forms.CharField(label='Пароль', widget=forms.PasswordInput(attrs={'class': ' form-control mx-sm-3',
+                                                                                 'style': 'max-width: 80%',}))
