@@ -95,7 +95,8 @@
 <div class="container-fluid">
     <div class="row d-flex flex-wrap justify-content-center">
         <h2>{{header}}</h2>
-        <form method="post" action="{% url 'addBook' %}" enctype="multipart/form-data">
+        {% comment %} enctype="multipart/form-data" {% endcomment %}
+        <form method="post" action="{% url 'addBook' %}" >
             {% csrf_token %}
             {{form.errors}}
             {{ form.non_field_errors }}
