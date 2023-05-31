@@ -14,7 +14,7 @@ class ChangeElementForm(forms.ModelForm):
                                             label='Жанри', 
                                             widget=forms.CheckboxSelectMultiple())
     coverart = forms.ImageField(label='Обкладинка', 
-                                widget=forms.FileInput(attrs={'style' : 'border: 1px solid #ccc; border-radius: 5px; padding: 10px; font-size: 16px;', 
+                                widget=forms.ClearableFileInput(attrs={'style' : 'border: 1px solid #ccc; border-radius: 5px; padding: 10px; font-size: 16px;', 
                                                               'class' : 'mx-ms-3',}))
 
     class Meta:
