@@ -105,7 +105,6 @@ def show(request, title):
         "book": Book.objects.filter(title=title).first(),
         'authenticated' : request.user.is_authenticated,
         'user' : request.user,
-        'is_creator': check_user(request),
     })
 
 class addAuthor(CreateView, DataMixin):
