@@ -5,22 +5,22 @@
 * {
     box-sizing: border-box;
   }
-  
+
   a {
     text-decoration: none;
     color: #379937;
   }
-  
+
   body {
     margin: 40px;
   }
-  
+
   .dropdown {
     position: relative;
     display: block;
     font-size: 14px;
     color: #333;
-  
+
     .dropdown-list {
       padding: 12px;
       background: #fff;
@@ -35,14 +35,14 @@
       max-height: 66vh;
       overflow-y: scroll;
     }
-    
+
     .dropdown-option {
       display: block;
       padding: 8px 12px;
       opacity: 0;
       transition: opacity .15s ease-in-out;
     }
-    
+
     .dropdown-label {
       display: block;
       height: 30px;
@@ -51,29 +51,29 @@
       padding: 6px 12px;
       line-height: 1;
       cursor: pointer;
-      
+
       &:before {
         content: '▼';
         float: right;
       }
     }
-    
+
     &.on {
      .dropdown-list {
         transform: scale(1, 1);
         transition-delay: 0s;
-        
+
         .dropdown-option {
           opacity: 1;
           transition-delay: .2s;
         }
       }
-      
+
       .dropdown-label:before {
         content: '▲';
       }
     }
-    
+
     [type="checkbox"] {
       position: relative;
       top: -1px;
@@ -95,7 +95,7 @@
 <div class="container-fluid">
     <div class="row d-flex flex-wrap justify-content-center">
         <h2>{{header}}</h2>
-        <form method="post" action="{% url 'edit' title=book.title %}" enctype="multipart/form-data">
+        <form method="post" action="{% url 'edit' title=book.title %}">
           {% csrf_token %}
           {{form.errors}}
           {{ form.non_field_errors }}
@@ -109,7 +109,7 @@
               <br/>
               <div class="dropdown mx-sm-3" id="authorsDd" data-control="checkbox-dropdown" style="width: 40%;">
                   <label class="dropdown-label">Вибрати</label>
-                  
+
                   <div class="dropdown-list " style="max-height: 550%; overflow-y: auto;">
                     <a data-toggle="check-all" class="dropdown-option" >
                       Вибрати всі
@@ -123,7 +123,7 @@
                           {% endwith %}
                       </div>
                     {% endfor %}
-                
+
 
                     <a class="dropdown-option" href="{% url 'addAuthor' %}">
                       Додати автора
@@ -136,12 +136,12 @@
             <br/>
             <div class="dropdown mx-sm-3" id="tagsDd" data-control="checkbox-dropdown" style="width: 40%;">
               <label class="dropdown-label">Вибрати</label>
-                
+
               <div class="dropdown-list " style="max-height: 550%; overflow-y: auto;" input="1d">
                 <a href="#" data-toggle="check-all" class="dropdown-option" >
-                  Вибрати всі  
+                  Вибрати всі
                 </a>
-              
+
                 {% for tag in form.tags %}
                   <div class="dropdown-option d-flex justify-content-between">
                       {{ tag }}
@@ -162,12 +162,12 @@
           <br/>
           <div class="dropdown mx-sm-3" id="genresDd" data-control="checkbox-dropdown" style="width: 40%;">
             <label class="dropdown-label">Виберіть</label>
-                          
+
             <div class="dropdown-list" style="max-height: 550%; overflow-y: auto;" input="1d">
               <a href="#" data-toggle="check-all" class="dropdown-option" >
-                Вибрати всі 
+                Вибрати всі
               </a>
-                          
+
               {% for genre in form.genres %}
                 <div class="dropdown-option d-flex justify-content-between">
                     {{ genre }}
@@ -181,7 +181,7 @@
                 Додати жанр
               </a>
             </div>
-          </div>            
+          </div>
       </div>
       <div class="form-group">
         {{form.description.label}}
@@ -207,34 +207,34 @@
       this.$label = this.$el.find('.dropdown-label');
       this.$checkAll = this.$el.find('[data-toggle="check-all"]').first();
       this.$inputs = this.$el.find('[type="checkbox"]');
-      
+
       this.onCheckBox();
-      
+
       this.$label.on('click', function(e) {
         e.preventDefault();
         _this.toggleOpen();
       });
-      
+
       this.$checkAll.on('click', function(e) {
         e.preventDefault();
         _this.onCheckAll();
       });
-      
+
       this.$inputs.on('change', function(e) {
         _this.onCheckBox();
       });
     };
-    
+
     CheckboxDropdown.prototype.onCheckBox = function() {
       this.updateStatus();
     };
-    
+
     CheckboxDropdown.prototype.updateStatus = function() {
       var checked = this.$el.find(':checked');
-      
+
       this.areAllChecked = false;
       this.$checkAll.html('Вибрати всі');
-      
+
       if(checked.length <= 0) {
         this.$label.html('Виберіть пункт');
       }
@@ -250,7 +250,7 @@
         this.$label.html(checked.length + ' Вибрані');
       }
     };
-    
+
     CheckboxDropdown.prototype.onCheckAll = function(checkAll) {
       if(!this.areAllChecked || checkAll) {
         this.areAllChecked = true;
@@ -262,13 +262,13 @@
         this.$checkAll.html('Check All');
         this.$inputs.prop('checked', false);
       }
-      
+
       this.updateStatus();
     };
-    
+
     CheckboxDropdown.prototype.toggleOpen = function(forceOpen) {
       var _this = this;
-      
+
       if(!this.isOpen || forceOpen) {
          this.isOpen = true;
          this.$el.addClass('on');
@@ -284,27 +284,27 @@
         $(document).off('click');
       }
     };
-    
+
     var checkboxesDropdowns = document.querySelectorAll('[data-control="checkbox-dropdown"]');
     for(var i = 0, length = checkboxesDropdowns.length; i < length; i++) {
       new CheckboxDropdown(checkboxesDropdowns[i]);
     }
   })(jQuery);
-  
+
 
   document.addEventListener('DOMContentLoaded', function() {
     const dropdowns = document.getElementsByClassName('dropdown');
-  
+
     for (let i = 0; i < dropdowns.length; i++) {
       dropdowns[i].addEventListener('click', function() {
         const elementId = this.getAttribute('id');
         for (let i = 0; i < dropdowns.length; i++) {
           const dropdown = dropdowns[i];
           const dropdownId = dropdown.getAttribute('id');
-          
+
           dropdown.style.zIndex = 'auto';
           dropdown.classList.remove('on')
-    
+
           if (dropdownId == elementId) {
             dropdown.style.zIndex = '9999';
             dropdown.classList.add('on')
