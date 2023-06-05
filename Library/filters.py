@@ -5,7 +5,9 @@ from .models import *
 class BookFilter(django_filters.FilterSet):
     title = django_filters.CharFilter(
         lookup_expr='icontains',
-        widget=forms.TextInput(attrs={'type': 'text', 'class': 'form-control mx-sm-3'}),
+        widget=forms.TextInput(attrs={'type': 'text', 
+                                      'class': 'form-control', 
+                                      'style': 'width: 100%;',}),
         label="Назва",
     )
     authors = django_filters.ModelMultipleChoiceFilter(

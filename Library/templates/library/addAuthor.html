@@ -6,25 +6,37 @@
     
 
 {% block style %}
-
+.primary-container {
+    margin: 0 auto;
+    max-width: 500px;
+    padding: 20px;
+    background-color: #f2f2f2;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+  }
 {% endblock style %}
 
 {% block body %}
-<div class="container-fluid">
-    <div class="row d-flex flex-wrap justify-content-center">
-        <h2>{{header}}</h2>
-        <form method="post" action="{% url 'addAuthor' %}">
-            {% csrf_token %}
-            <input type="hidden" name="previous_page" value="{{ previous_page }}">
-            {{form.errors}}
-            {{ form.non_field_errors }}
-            <div class="form-group form-inline">
-                {{form.name.label}}
-                <br/>
-                {{form.name}}
-            </div>
-            <button type="submit" class="btn btn-success mx-sm-3">Зберегти зміни</button>
-        </form>
+<div class="primary-container">
+    <div class="container-fluid">
+        <div class="row d-flex flex-wrap justify-content-center">
+            <h2>{{header}}</h2>
+            <form method="post" action="{% url 'addAuthor' %}">
+                {% csrf_token %}
+                <input type="hidden" name="previous_page" value="{{ previous_page }}">
+                {{form.errors}}
+                {{ form.non_field_errors }}
+                <div class="form-group form-inline">
+                    {{form.name.label}}
+                    <br/>
+                    {{form.name}}
+                </div>
+                <button type="submit" class="btn btn-info">Зберегти зміни</button>
+            </form>
+        </div>
     </div>
 </div>
 {% endblock body %}

@@ -14,8 +14,7 @@ class ChangeElementForm(forms.ModelForm):
                                             label='Жанри', 
                                             widget=forms.CheckboxSelectMultiple())
     coverart = forms.ImageField(label='Обкладинка', 
-                                widget=forms.ClearableFileInput(attrs={'style' : 'border: 1px solid #ccc; border-radius: 5px; padding: 10px; font-size: 16px;', 
-                                                              'class' : 'mx-ms-3',}))
+                                widget=forms.ClearableFileInput(attrs={'style' : 'border: 1px solid #ccc; border-radius: 5px; padding: 10px; font-size: 16px;', }))
 
     class Meta:
         model = Book
@@ -27,18 +26,18 @@ class ChangeElementForm(forms.ModelForm):
                   'description')
         widgets = {
             'title': forms.TextInput(attrs={'type': 'text', 
-                                            'class': 'form-control mx-sm-3', 
-                                            'style': 'width: 30%;'}),
-            'description': forms.Textarea(attrs={'class': 'form-control mx-sm-3', 
+                                            'class': 'form-control',
+                                            'style': 'width: 100%;',}),
+            'description': forms.Textarea(attrs={'class': 'form-control', 
                                                  'rows': '7', 
-                                                 'style': 'width: 50%; resize: none;'})
+                                                 'style': 'resize: none;'})
         }
 
 class ChangeAuthor(forms.ModelForm):
     name = forms.CharField(label="Повне ім'я", 
                            widget=forms.TextInput(attrs={'type': 'text', 
-                                                        'class': 'form-control mx-sm-3', 
-                                                        'style': 'width: 30%;', }),)
+                                                        'class': 'form-control', 
+                                                        'style': 'width: 100%;', }),)
     
     class Meta:
         model = Author
@@ -47,8 +46,8 @@ class ChangeAuthor(forms.ModelForm):
 class ChangeTag(forms.ModelForm):
     name = forms.CharField(label="Тег", 
                            widget=forms.TextInput(attrs={'type': 'text', 
-                                                         'class': 'form-control mx-sm-3', 
-                                                         'style': 'width: 30%;',}),)
+                                                         'class': 'form-control', 
+                                                         'style': 'width: 100%;',}),)
     
     class Meta:
         model = Tag
@@ -57,8 +56,8 @@ class ChangeTag(forms.ModelForm):
 class ChangeGenre(forms.ModelForm):
     name = forms.CharField(label="Жанр", 
                            widget=forms.TextInput(attrs={'type': 'text', 
-                                                         'class': 'form-control mx-sm-3', 
-                                                         'style': 'width: 30%;',}),)
+                                                         'class': 'form-control', 
+                                                         'style': 'width: 100%;',}),)
     
     class Meta:
         model = Genre
@@ -75,8 +74,7 @@ class SearchForm(forms.ModelForm):
                                             label='Жанри', 
                                             widget=forms.CheckboxSelectMultiple(attrs={'name' : 'genres',}))
     coverart = forms.ImageField(label='Обкладинка', 
-                                widget=forms.FileInput(attrs={'style' : 'border: 1px solid #ccc; border-radius: 5px; padding: 10px; font-size: 16px;', 
-                                                              'class' : 'mx-ms-3',}))
+                                widget=forms.FileInput(attrs={'style' : 'border: 1px solid #ccc; border-radius: 5px; padding: 10px; font-size: 16px;',}))
 
     class Meta:
         model = Book
@@ -88,9 +86,9 @@ class SearchForm(forms.ModelForm):
                   'description')
         widgets = {
             'title': forms.TextInput(attrs={'type': 'text', 
-                                            'class': 'form-control mx-sm-3', 
+                                            'class': 'form-control', 
                                             'style': 'width: 30%;', 'name' : 'title',}),
-            'description': forms.Textarea(attrs={'class': 'form-control mx-sm-3', 
+            'description': forms.Textarea(attrs={'class': 'form-control', 
                                                  'rows': '7', 
                                                  'style': 'width: 50%; resize: none;', 
                                                  'name' : 'description',})
@@ -99,19 +97,15 @@ class SearchForm(forms.ModelForm):
 
 class RegisterUserForm(UserCreationForm):
     username = forms.CharField(label='Логін', 
-                               widget=forms.TextInput(attrs={'class': ' form-control mx-sm-3',
-                                                            'style': 'max-width: 80%',}))
+                               widget=forms.TextInput(attrs={'class': ' form-control',}))
     email = forms.CharField(label='Пошта', 
-                            widget=forms.TextInput(attrs={'class': ' form-control mx-sm-3',
-                                                        'style': 'max-width: 80%',}))
+                            widget=forms.TextInput(attrs={'class': ' form-control',}))
     password1 = forms.CharField(label='Пароль', 
-                                widget=forms.TextInput(attrs={'class': ' form-control mx-sm-3', 
-                                                            'type': 'password',
-                                                            'style': 'max-width: 80%'}))
+                                widget=forms.TextInput(attrs={'class': ' form-control', 
+                                                            'type': 'password',}))
     password2 = forms.CharField(label='Повторіть пароль', 
-                                widget=forms.TextInput(attrs={'class': ' form-control mx-sm-3', 
-                                                            'type': 'password',
-                                                            'style': 'max-width: 80%'}))
+                                widget=forms.TextInput(attrs={'class': ' form-control', 
+                                                            'type': 'password',}))
     
     class Meta:
         model = User
@@ -122,8 +116,6 @@ class RegisterUserForm(UserCreationForm):
         
 class LoginUserForm(AuthenticationForm):
     username = forms.CharField(label="Логін", 
-                               widget=forms.TextInput(attrs={'class': ' form-control mx-sm-3',
-                                                            'style': 'max-width: 80%',}))
+                               widget=forms.TextInput(attrs={'class': ' form-control',}))
     password = forms.CharField(label='Пароль', 
-                               widget=forms.PasswordInput(attrs={'class': ' form-control mx-sm-3',
-                                                                'style': 'max-width: 80%',}))
+                               widget=forms.PasswordInput(attrs={'class': ' form-control',}))
