@@ -17,8 +17,8 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   </head>
   <body>
-    <nav class="navbar navbar-expand-md bg-light navbar-light">
-      <a class="navbar-brand" href="{% url 'library' %}">EntertaimentLib</a>
+    <nav class="navbar navbar-expand-md bg-light navbar-light" style="font-size: 130%;">
+      <a class="ms-sm-5 navbar-brand text-info" href="{% url 'library' %}" style="font-family:'Brush Script MT',cursive; font-size: 200%;">EntertaimentLib</a>
     
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
         <span class="navbar-toggler-icon"></span>
@@ -37,7 +37,7 @@
           {% endif %}
         </ul>
         
-        <ul class="navbar-nav navbar-right">
+        <ul class="navbar-nav navbar-right mx-sm-5">
           {% if not authenticated %}
           <li class="nav-item">
             <a class="nav-link" href="{% url 'register' %}">Зареєструватися</a>
