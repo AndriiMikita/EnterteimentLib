@@ -104,11 +104,11 @@
 {% endblock title %}
 
 {% block body %}
-<<<<<<< HEAD
-<div class="container-fluid">
+<div class="primary-container">
+  <div class="container-fluid">
     <div class="row d-flex flex-wrap justify-content-center">
         <h2>{{header}}</h2>
-        <form method="post" action="{% url 'addBook' %}" >
+        <form method="post" action="{% url 'addBook' %}" enctype="multipart/form-data">
             {% csrf_token %}
             {{form.errors}}
             {{ form.non_field_errors }}
@@ -116,55 +116,13 @@
                 {{form.title.label}}
                 <br/>
                 {{form.title}}
-=======
-<div class="primary-container">
-  <div class="container-fluid">
-      <div class="row d-flex flex-wrap justify-content-center">
-          <h2>{{header}}</h2>
-          <form method="post" action="{% url 'addBook' %}" enctype="multipart/form-data">
-              {% csrf_token %}
-              {{form.errors}}
-              {{ form.non_field_errors }}
-              <div class="form-group form-inline">
-                  {{form.title.label}}
-                  <br/>
-                  {{form.title}}
-                </div>
-              <div class="form-group form-inline">
-                  {{form.authors.label}}
-                  <br/>
-                  <div class="dropdown" id="authorsDd" data-control="checkbox-dropdown">
-                      <label class="dropdown-label">Вибрати</label>
-                      
-                      <div class="dropdown-list " style="max-height: 550%; overflow-y: auto;">
-                        <a data-toggle="check-all" class="dropdown-option" >
-                          Вибрати всі
-                        </a>
-
-                        {% for author in form.authors %}
-                          <div class="dropdown-option d-flex justify-content-between">
-                              {{ author }}
-                              {% with author=forloop.counter %}
-                                <a href="{% url 'editAuthor' pk=author %}">Редагувати</a>
-                              {% endwith %}
-                          </div>
-                        {% endfor %}
-                    
-
-                        <a class="dropdown-option" href="{% url 'addAuthor' %}">
-                          Додати автора
-                        </a>
-                      </div>
-                  </div>
->>>>>>> 14e18fddc9fe21c8e73d74fd891542bf5abdad4d
               </div>
-              <div class="form-group form-inline">
-                {{form.tags.label}}
+            <div class="form-group form-inline">
+                {{form.authors.label}}
                 <br/>
-<<<<<<< HEAD
-                <div class="dropdown mx-sm-3" id="authorsDd" data-control="checkbox-dropdown" style="width: 25%;">
+                <div class="dropdown" id="authorsDd" data-control="checkbox-dropdown">
                     <label class="dropdown-label">Вибрати</label>
-
+                    
                     <div class="dropdown-list " style="max-height: 550%; overflow-y: auto;">
                       <a data-toggle="check-all" class="dropdown-option" >
                         Вибрати всі
@@ -178,82 +136,51 @@
                             {% endwith %}
                         </div>
                       {% endfor %}
-
-=======
-                <div class="dropdown" id="tagsDd" data-control="checkbox-dropdown">
-                  <label class="dropdown-label">Вибрати</label>
-                    
-                  <div class="dropdown-list " style="max-height: 550%; overflow-y: auto;" input="1d">
-                    <a href="#" data-toggle="check-all" class="dropdown-option" >
-                      Вибрати всі  
-                    </a>
                   
-                    {% for tag in form.tags %}
-                      <div class="dropdown-option d-flex justify-content-between">
-                          {{ tag }}
-                          {% with tag=forloop.counter %}
-                            <a href="{% url 'editTag' pk=tag %}">Редагувати</a>
-                          {% endwith %}
-                      </div>
-                    {% endfor %}
->>>>>>> 14e18fddc9fe21c8e73d74fd891542bf5abdad4d
 
-                    <a class="dropdown-option" href="{% url 'addTag' %}"">
-                      Додати тег
-                    </a>
-                  </div>
+                      <a class="dropdown-option" href="{% url 'addAuthor' %}">
+                        Додати автора
+                      </a>
+                    </div>
                 </div>
             </div>
             <div class="form-group form-inline">
-              {{form.genres.label}}
+              {{form.tags.label}}
               <br/>
-<<<<<<< HEAD
-              <div class="dropdown mx-sm-3" id="tagsDd" data-control="checkbox-dropdown" style="width: 25%;">
+              <div class="dropdown" id="tagsDd" data-control="checkbox-dropdown">
                 <label class="dropdown-label">Вибрати</label>
-
+                  
                 <div class="dropdown-list " style="max-height: 550%; overflow-y: auto;" input="1d">
                   <a href="#" data-toggle="check-all" class="dropdown-option" >
-                    Вибрати всі
+                    Вибрати всі  
                   </a>
-
+                
                   {% for tag in form.tags %}
-=======
-              <div class="dropdown" id="genresDd" data-control="checkbox-dropdown">
-                <label class="dropdown-label">Виберіть</label>
-                              
-                <div class="dropdown-list" style="max-height: 550%; overflow-y: auto;" input="1d">
-                  <a href="#" data-toggle="check-all" class="dropdown-option" >
-                    Вибрати всі 
-                  </a>
-                              
-                  {% for genre in form.genres %}
->>>>>>> 14e18fddc9fe21c8e73d74fd891542bf5abdad4d
                     <div class="dropdown-option d-flex justify-content-between">
-                        {{ genre }}
-                        {% with genre=forloop.counter %}
-                          <a href="{% url 'editGenre' pk=genre %}">Редагувати</a>
+                        {{ tag }}
+                        {% with tag=forloop.counter %}
+                          <a href="{% url 'editTag' pk=tag %}">Редагувати</a>
                         {% endwith %}
                     </div>
                   {% endfor %}
 
-                  <a class="dropdown-option" href="{% url 'addGenre' %}"">
-                    Додати жанр
+                  <a class="dropdown-option" href="{% url 'addTag' %}"">
+                    Додати тег
                   </a>
                 </div>
-              </div>            
+              </div>
           </div>
-<<<<<<< HEAD
           <div class="form-group form-inline">
             {{form.genres.label}}
             <br/>
-            <div class="dropdown mx-sm-3" id="genresDd" data-control="checkbox-dropdown" style="width: 25%;">
+            <div class="dropdown" id="genresDd" data-control="checkbox-dropdown">
               <label class="dropdown-label">Виберіть</label>
-
+                            
               <div class="dropdown-list" style="max-height: 550%; overflow-y: auto;" input="1d">
                 <a href="#" data-toggle="check-all" class="dropdown-option" >
-                  Вибрати всі
+                  Вибрати всі 
                 </a>
-
+                            
                 {% for genre in form.genres %}
                   <div class="dropdown-option d-flex justify-content-between">
                       {{ genre }}
@@ -267,20 +194,19 @@
                   Додати жанр
                 </a>
               </div>
-            </div>
-=======
-          <div class="form-group">
-            {{form.description.label}}
-            {{form.description}}
->>>>>>> 14e18fddc9fe21c8e73d74fd891542bf5abdad4d
+            </div>            
         </div>
         <div class="form-group">
-          {{form.coverart.label}}
-          {{form.coverart}}
-        </div>
-        <button type="submit" class="btn btn-info">Зберегти зміни</button>
-        </form>
+          {{form.description.label}}
+          {{form.description}}
       </div>
+      <div class="form-group">
+        {{form.coverart.label}}
+        {{form.coverart}}
+      </div>
+      <button type="submit" class="btn btn-info">Зберегти зміни</button>
+      </form>
+    </div>
   </div>
 </div>
 {% endblock body %}
