@@ -12,11 +12,6 @@ from .util import *
 
 # Create yviews here.
 
-@login_required
-def check_user(request):
-    creator_group = Group.objects.get(name='Creator')
-    return creator_group in request.user.groups.all()
-
 class Library(FilterView, DataMixin):
     model = Book
     template_name = 'library/library.html'
@@ -36,12 +31,11 @@ class Library(FilterView, DataMixin):
 
     def get_queryset(self):
         queryset = super().get_queryset()
-        self.filterset = self.filterset_class(self.request.GET, queryset=queryset)
+        self.filterset = self.filterset_class(self.request.GET, queryset=Book.objects.all())
         return self.filterset.qs
 
-    
 def edit(request, title):
-    if not check_user(request):
+    if not request.user.is_authenticated or not request.user.groups.filter(name='Creator').exists():
         return redirect('library')
         
     book = Book.objects.filter(title=title).first()
@@ -69,12 +63,13 @@ def edit(request, title):
         'authenticated' : request.user.is_authenticated,
         'user' : request.user
     })
-    
+   
 def addBook(request):
-    if not check_user(request):
+    if not request.user.is_authenticated or not request.user.groups.filter(name='Creator').exists():
         return redirect('library')
     
     book = Book()
+    
     if request.method == 'POST':
         form = ChangeElementForm(request.POST, request.FILES, instance=book)
         if form.is_valid():
@@ -130,6 +125,11 @@ class addAuthor(CreateView, DataMixin):
     def check_user(self):
         creator_group = Group.objects.get(name='Creator')
         return creator_group in self.request.user.groups.all()
+    
+    def dispatch(self, request, *args, **kwargs):
+        if not self.check_user():
+            return redirect('library')
+        return super().dispatch(request, *args, **kwargs)
     
 class addTag(CreateView, DataMixin):
     form_class = ChangeTag
