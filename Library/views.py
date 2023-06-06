@@ -23,6 +23,7 @@ class Library(FilterView, DataMixin):
         context['is_creator'] = self.check_user()
         context['authenticated'] = self.request.user.is_authenticated
         context['user'] = self.request.user
+        context['tags_ids'] = Tag.objects.all().values_list('pk', flat=True)
         return context
 
     def check_user(self):

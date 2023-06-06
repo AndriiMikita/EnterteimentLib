@@ -144,8 +144,9 @@
                       <div class="dropdown-option d-flex justify-content-between">
                           {{ tag }}
                           {% if is_creator %}
-                          {% with tag=forloop.counter %}
-                              <a href="{% url 'editTag' pk=tag %}">Редагувати</a>
+                          {% with index=forloop.counter %}
+                            <script>console.log({{tag.pk}})</script>
+                            <a href="{% url 'editTag' pk=index %}">Редагувати</a>
                           {% endwith %}
                           {% endif %} 
                           
