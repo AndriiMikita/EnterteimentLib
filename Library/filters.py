@@ -8,7 +8,7 @@ class BookFilter(django_filters.FilterSet):
         widget=forms.TextInput(attrs={'type': 'text', 
                                       'class': 'form-control', 
                                       'style': 'width: 100%;',}),
-        label="Назва",
+        label="Title",
     )
     authors = django_filters.ModelMultipleChoiceFilter(
         field_name='authors',

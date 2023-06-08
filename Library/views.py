@@ -23,7 +23,6 @@ class Library(FilterView, DataMixin):
         context['is_creator'] = self.check_user()
         context['authenticated'] = self.request.user.is_authenticated
         context['user'] = self.request.user
-        context['tags_ids'] = Tag.objects.all().values_list('pk', flat=True)
         return context
 
     def check_user(self):
@@ -60,7 +59,7 @@ def edit(request, title):
         "tags": Tag.objects.all(),
         "genres": Genre.objects.all(),
         "form": form,
-        "header": 'Редагувати книгу',
+        "header": 'Edit book',
         'authenticated' : request.user.is_authenticated,
         'user' : request.user
     })
@@ -90,7 +89,7 @@ def addBook(request):
         "tags": Tag.objects.all(),
         "genres": Genre.objects.all(),
         "form": form,
-        "header": 'Додати книгу',
+        "header": 'Add book',
         'authenticated' : request.user.is_authenticated,
         'user' : request.user,
     })
@@ -162,7 +161,7 @@ class addTag(CreateView, DataMixin):
     
 class addGenre(CreateView, DataMixin):
     form_class = ChangeGenre
-    template_name = "library/addTag.html"
+    template_name = "library/addGenre.html"
     
     def get_success_url(self):
         previous_page = self.request.POST.get('previous_page')
@@ -206,6 +205,7 @@ class editAuthor(UpdateView, DataMixin):
         context['is_creator'] = self.check_user()
         context['authenticated'] = self.request.user.is_authenticated
         context['user'] = self.request.user
+        context['authors'] = Author.objects.all()
         return context
     
     def check_user(self):
@@ -216,6 +216,7 @@ class editAuthor(UpdateView, DataMixin):
         if not self.check_user():
             return redirect('library')
         return super().dispatch(request, *args, **kwargs)
+
     
 class editTag(UpdateView, DataMixin):
     model = Tag

@@ -144,7 +144,7 @@
               <h2>{{book.title}}</h2>
           </div>
           <div class="author-buttons-container">
-            <p>Автори:</p>
+            <p>Authors:</p>
             <ul class="author-buttons">
                 {% for author in book.authors.all %}
                 <li><a href="{% url 'library' %}?authors={{author.pk}}">{{author}}</a></li>
@@ -152,7 +152,7 @@
             </ul>
         </div>
           <div class="tag-container">
-              <p>Теги:</p>
+              <p>Tags:</p>
               <div class="tags">
                   <ul class="author-buttons">
                       {% for tag in book.tags.all %}
@@ -162,7 +162,7 @@
               </div>
           </div>
           <div class="genre-container">
-              <p>Жанри:</p>
+              <p>Genres:</p>
               <div class="genres">
                   <ul class="author-buttons">
                       {% for genre in book.genres.all %}
@@ -174,7 +174,7 @@
       </div>
   </div>
   <div class="content-container">
-    <p>Короткий Зміст</p>
+    <p>Brief content</p>
     <div>
       {{book.description}}
     </div>

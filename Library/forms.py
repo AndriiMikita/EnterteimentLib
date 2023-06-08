@@ -5,15 +5,15 @@ from django.contrib.auth.models import *
 
 class ChangeElementForm(forms.ModelForm):
     authors = forms.ModelMultipleChoiceField(queryset=Author.objects.all(), 
-                                             label='Автори', 
+                                             label='Authors', 
                                              widget=forms.CheckboxSelectMultiple())
     tags = forms.ModelMultipleChoiceField(queryset=Tag.objects.all(),
-                                          label='Теги', 
+                                          label='Tags', 
                                           widget=forms.CheckboxSelectMultiple())
     genres = forms.ModelMultipleChoiceField(queryset=Genre.objects.all(), 
-                                            label='Жанри', 
+                                            label='Genres', 
                                             widget=forms.CheckboxSelectMultiple())
-    coverart = forms.ImageField(label='Обкладинка', 
+    coverart = forms.ImageField(label='Cover Art', 
                                 widget=forms.ClearableFileInput(attrs={'style' : 'border: 1px solid #ccc; border-radius: 5px; padding: 10px; font-size: 16px;', }))
 
     class Meta:
@@ -34,7 +34,7 @@ class ChangeElementForm(forms.ModelForm):
         }
 
 class ChangeAuthor(forms.ModelForm):
-    name = forms.CharField(label="Повне ім'я", 
+    name = forms.CharField(label="Full Name", 
                            widget=forms.TextInput(attrs={'type': 'text', 
                                                         'class': 'form-control', 
                                                         'style': 'width: 100%;', }),)
@@ -44,7 +44,7 @@ class ChangeAuthor(forms.ModelForm):
         fields = ('name', )
         
 class ChangeTag(forms.ModelForm):
-    name = forms.CharField(label="Тег", 
+    name = forms.CharField(label="Tag", 
                            widget=forms.TextInput(attrs={'type': 'text', 
                                                          'class': 'form-control', 
                                                          'style': 'width: 100%;',}),)
@@ -54,7 +54,7 @@ class ChangeTag(forms.ModelForm):
         fields = ('name', )
 
 class ChangeGenre(forms.ModelForm):
-    name = forms.CharField(label="Жанр", 
+    name = forms.CharField(label="Genre", 
                            widget=forms.TextInput(attrs={'type': 'text', 
                                                          'class': 'form-control', 
                                                          'style': 'width: 100%;',}),)
@@ -65,15 +65,15 @@ class ChangeGenre(forms.ModelForm):
         
 class SearchForm(forms.ModelForm):
     authors = forms.ModelMultipleChoiceField(queryset=Author.objects.all(), 
-                                             label='Автори', 
+                                             label='Authors', 
                                              widget=forms.CheckboxSelectMultiple(attrs={'name': 'authors',}))
     tags = forms.ModelMultipleChoiceField(queryset=Tag.objects.all(), 
-                                          label='Теги', 
+                                          label='Tags', 
                                           widget=forms.CheckboxSelectMultiple(attrs={'name' : 'tags',}))
     genres = forms.ModelMultipleChoiceField(queryset=Genre.objects.all(), 
-                                            label='Жанри', 
+                                            label='Genres', 
                                             widget=forms.CheckboxSelectMultiple(attrs={'name' : 'genres',}))
-    coverart = forms.ImageField(label='Обкладинка', 
+    coverart = forms.ImageField(label='Cover Art', 
                                 widget=forms.FileInput(attrs={'style' : 'border: 1px solid #ccc; border-radius: 5px; padding: 10px; font-size: 16px;',}))
 
     class Meta:
@@ -96,14 +96,14 @@ class SearchForm(forms.ModelForm):
         
 
 class RegisterUserForm(UserCreationForm):
-    username = forms.CharField(label='Логін', 
+    username = forms.CharField(label='Username', 
                                widget=forms.TextInput(attrs={'class': ' form-control',}))
-    email = forms.CharField(label='Пошта', 
+    email = forms.CharField(label='Email', 
                             widget=forms.TextInput(attrs={'class': ' form-control',}))
-    password1 = forms.CharField(label='Пароль', 
+    password1 = forms.CharField(label='Password', 
                                 widget=forms.TextInput(attrs={'class': ' form-control', 
                                                             'type': 'password',}))
-    password2 = forms.CharField(label='Повторіть пароль', 
+    password2 = forms.CharField(label='Confirm Password', 
                                 widget=forms.TextInput(attrs={'class': ' form-control', 
                                                             'type': 'password',}))
     
@@ -115,7 +115,7 @@ class RegisterUserForm(UserCreationForm):
                   'password2',)
         
 class LoginUserForm(AuthenticationForm):
-    username = forms.CharField(label="Логін", 
+    username = forms.CharField(label="Username", 
                                widget=forms.TextInput(attrs={'class': ' form-control',}))
-    password = forms.CharField(label='Пароль', 
+    password = forms.CharField(label='Password', 
                                widget=forms.PasswordInput(attrs={'class': ' form-control',}))

@@ -1,10 +1,8 @@
 {% extends "layout.html" %}
 
-
 {% block title %}
-    <title>Реєстрація</title>
+    <title>Registration</title>
 {% endblock title %}
-
 
 {% block style %}
 .primary-container {
@@ -16,13 +14,12 @@
     display: flex;
     height: 100%;
     flex-direction: column;
-  }
+}
 {% endblock style %}
-    
 
 {% block body %}
     <div class="d-flex justify-content-center flex-column">
-        <div class="d-flex h2 justify-content-center">Реєстрація</div>
+        <div class="d-flex h2 justify-content-center">Registration</div>
         <div class="primary-container">
             <form method="post">
                 {% csrf_token %}
@@ -32,13 +29,12 @@
                     </br>
                     {{f}}
                     {% if f.errors %}
-                        <div class="form-erros alert alert-danger">{{f.errors}}</div>
+                        <div class="form-errors alert alert-danger">{{f.errors}}</div>
                     {% endif %}
                 </div>
                 {% endfor %}
-                <button class="btn btn-info" type="submit">Реєстрація</button>
+                <button class="btn btn-info" type="submit">Register</button>
             </form>
         </div>
     </div>
 {% endblock body %}
-    
